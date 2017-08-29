@@ -10,9 +10,9 @@ While "true"
   
   forca = -1*((Math.Power(mediaS, 2)+100*mediaS)*18)/700
   
-  If VS1 > VS2 + 15 Then
+  If VS1 > VS2 + 5 Then
     Motor.StartSync("AB", -1*mediaS, mediaS)
-  ElseIf VS2 > VS1 + 15 then
+  ElseIf VS2 > VS1 + 5 then
     Motor.StartSync("AB", mediaS, -1*mediaS)
   Elseif VS1 = VS2 then
     Motor.Start("AB", -40)
