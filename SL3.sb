@@ -1,20 +1,16 @@
-'obs: sensor porta1=sensor esquerdo, sensor porta2= sensor direito
-'motor A= motor/esteira esquerda; motor B = motor/esteira direita// VS= valor do sensor...
 Sensor.SetMode(1, 0)
-Sensor.SetMode(2, 0)
+Sensor.SetMode(4, 0)
 While "true"
   VS1 = Sensor.ReadRawValue(1, 0)
-  VS2 = Sensor.ReadRawValue(2, 0)
-  
-  mediaS = VS1 + VS2 / 2
-  
-  forca = -1*((Math.Power(mediaS, 2)+100*mediaS)*18)/700
-  
-  If VS1 > VS2 + 10 Then
-    Motor.StartSync("AB", -1*mediaS, mediaS)
+  VS2 = Sensor.ReadRawValue(4, 1) 
+  x = (VS1 + VS2) / 2
+  forcaMotor = ((-1)*Math.Power(x, 2) + 100 * x) * 18 / 500
+  Motor.StartPower("BC", -1 * forcaMotor)
+  If VS1 - 5 > VS2 + 10 Then
+    Motor.StartSync("BC", -1 * forcaMotor, 0.2 * forcaMotor)
   ElseIf VS2 > VS1 + 10 then
-    Motor.StartSync("AB", mediaS, -1*mediaS)
-  Elseif VS1 = VS2 then
-    Motor.Start("AB", -40)
-  EndIf 
+    Motor.StartSync("BC", 0.2*forcaMotor, -1 * forcaMotor)
+  Else
+    Motor.StartSync("BC", -1 * forcaMotor, -1 * forcaMotor)
+  EndIf
 EndWhile
