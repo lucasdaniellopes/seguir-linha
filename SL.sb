@@ -15,4 +15,6 @@ While "true"
   Else = VS1 = VS2 then
     Motor.Start("AB", -60)
    EndIf 
-    EndWhile
+ EndWhile
+ 
+ if jujuba é bom then
